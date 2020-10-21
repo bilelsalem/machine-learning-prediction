@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ML API FLAST API</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Main Input For Receiving Query to our ML -->
+
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                <h3>Welcome</h3>
+                <p>You are 30 seconds away from earning your own money!</p>
+                <input type="submit" name="" value="Login" /><br />
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Employee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hirer</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Apply as a Employee</h3>
+                        <form action="{{ url_for('predict')}}" method="post">
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <input type="text" class="form-control" placeholder="Age" name="age" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="maxl">
+                                            <label class="radio inline" name="gender">
+                                                <input type="radio" name="gender" value="1" checked>
+                                                <span > Male </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" value="0">
+                                                <span >Female </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="familyHistory">
+                                            <option class="hidden" selected disabled>Family History ?</option>
+                                            <option value="1">YES</option>
+                                            <option value="0">NO</option>
+                                      
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="benefits"> 
+                                            <option class="hidden" selected disabled>Benefits ?</option>
+                                            <option value ="2">YES</option>
+                                            <option value="1">NO</option>
+                                            <option value="0">DON'T KNOW</option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" name="careOptions">
+                                            <option class="hidden" selected disabled >Care_options ?</option>
+                                            <option value="2">YES</option>
+                                            <option value="1">NOT SURE</option>
+                                            <option value="0">NO</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="anonymity">
+                                            <option class="hidden" selected disabled>Anonymity ?</option>
+                                            <option value="2">YES</option>
+                                            <option value="1">NO</option>
+                                            <option value="0">DON'T KNOW</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group" name="leave">
+                                        <select class="form-control" name="leave">
+                                            <option class="hidden" selected disabled >Leave ?</option>
+                                            <option value ="0">DON'T KNOW</option>
+                                            <option value="1">SOMEWHAT DIFFICULT</option>
+                                            <option value="2">SOMEWHAT EASY</option>
+                                            <option value="3">VERY DIFFICULT</option>
+                                            <option value="4">VERY EASY</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control" name="workInterface">
+                                            <option class="hidden" selected disabled>Work_interface ?</option>
+                                            <option value="0">DON'T KNOW</option>
+                                            <option value="1">NEVER</option>
+                                            <option value="2">OFTEN</option>
+                                            <option value="3">RARELY</option>
+                                            <option value="4">SOMETIMES</option>
+                                        </select>
+                                    </div>
+
+
+                                    <button type="submit" class="btnRegister">Predict</button>
+
+                                    <div class="right-align">
+                                        <h3> {{ prediction_text }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <h3 class="register-heading">Apply as a Hirer</h3>
+
+                        <form action="{{ url_for('predict')}}" method="post">
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Email *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Password *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option class="hidden" selected disabled>Please select your Sequrity
+                                                Question</option>
+                                            <option>What is your Birthdate?</option>
+                                            <option>What is Your old Phone Number</option>
+                                            <option>What is your Pet Name?</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="`Answer *" value="" />
+                                    </div>
+
+                                    <button type="submit" class="btnRegister">Predict</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <br> {{ prediction_text }}
+
+    </div>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
